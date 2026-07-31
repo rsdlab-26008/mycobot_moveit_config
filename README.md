@@ -1,44 +1,40 @@
 # mycobot_moveit_config
 
-MyCobot 280（6自由度マニピュレータ）のURDFモデルを自作し、MoveIt 2で動作確認するためのROS 2パッケージです。
-
 ## 概要
+このパッケージはMyCobot 280をMoveIt2で動作させるためのROS2パッケージです．
 
-- ロボットの寸法図（J1〜J6の関節位置が明示された仕様図）から自分で座標系（各関節の回転軸・オフセット）を導出
-- [csv2urdf](https://github.com/ttakubo/csv2urdf) を使ってCSV → URDFを生成
-- MoveIt Setup AssistantでMoveIt 2用パッケージ（SRDF、コントローラ設定等）を作成
-- `demo.launch.py` でRViz2 + MoveIt上での動作を確認済み
 
 ## 環境
 
+- Ubuntu22.04(WSL2)
 - ROS 2 Humble
 - MoveIt 2
-- Python 3 / jinja2（csv2urdfの実行に必要）
+- Python 3
 
-## セットアップ手順
+## 動作手順
 
-1. `csv2urdf` をクローンし、`csv/mycobot280.csv` を配置してURDFを生成
+1. GitHubからリポジトリをクローン
    ```bash
-   git clone https://github.com/ttakubo/csv2urdf.git
-   cd csv2urdf
-   pip3 install jinja2
-   python3 create_robot_csv.py mycobot280.csv
+   cd ~/colcon_ws/src
+   git clone https://github.com/rsdlab-26008/mycobot_moveit_config.git
    ```
-2. `check_urdf mycobot280.urdf` で生成物を確認
-3. MoveIt Setup Assistantを起動し、生成したURDFを読み込んでパッケージを作成
-   ```bash
-   ros2 launch moveit_setup_assistant setup_assistant.launch.py
-   ```
-   - Planning Groups / Robot Poses / End Effectors / ROS 2 Controllers を設定
-   - Configuration Files で `mycobot_moveit_config` として保存
-4. ワークスペースでビルド
+
+2. ワークスペースでビルド
    ```bash
    cd ~/colcon_ws
    colcon build --symlink-install
    source install/setup.bash
    ```
-5. 起動
+
+3. 起動
    ```bash
    ros2 launch mycobot_moveit_config demo.launch.py
    ```
-6. RViz2のMotionPlanningパネルでインタラクティブマーカーを動かし、Plan → Executeで動作確認
+
+4. Rviz上でアーム操作
+
+   RViz2のMotionPlanningパネルでインタラクティブマーカーを動かし，アームを任意の姿勢に動かす．
+   
+   位置が決まったら，パネルでPlan → Executeを選択することで腕の操作が可能となる！
+
+![RVizでの動作確認](image/arm.png)
