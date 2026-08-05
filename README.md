@@ -1,7 +1,7 @@
 # mycobot_moveit_config
 
 ## 概要
-このパッケージはMyCobot 280をMoveIt2で動作させるためのROS2パッケージです．
+このパッケージはMyCobot 280をMoveIt2で動作させるためのROS2パッケージである．
 
 
 ## 環境
@@ -10,6 +10,11 @@
 - ROS 2 Humble
 - MoveIt 2
 - Python 3
+
+## MyCobot280のリンク図
+今回対象となるMyCobot280のリンク図を下図に示す．
+
+![MyCobot280リンク図](image/link.png)
 
 ## 動作手順
 
